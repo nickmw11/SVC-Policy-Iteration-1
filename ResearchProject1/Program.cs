@@ -26,6 +26,8 @@ namespace ResearchProject1
                 }
             }
 
+            gridCellTable[1, 1].isPassable = false;
+
             void printTable(GridCell[,] table)
             {
                 for (int i = 0; i < table.GetLength(0); i++)

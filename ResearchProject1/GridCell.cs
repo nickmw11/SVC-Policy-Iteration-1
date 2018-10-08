@@ -16,6 +16,10 @@ namespace ResearchProject1
 
         public override string ToString()
         {
+            if (isPassable == false)
+                return "[ X ]";
+
+            else
             return "[ " + value + " ]";
         }
 
