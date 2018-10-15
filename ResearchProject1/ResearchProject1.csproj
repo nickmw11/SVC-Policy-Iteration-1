@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Vector.cs" />
+    <Compile Include="World.cs" />
+    <Compile Include="Robot.cs" />
     <Compile Include="GridCell.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

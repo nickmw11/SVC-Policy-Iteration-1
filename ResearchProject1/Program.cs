@@ -11,8 +11,8 @@ namespace ResearchProject1
         
         static void Main(string[] args)
         {
-
-            GridCell[,] gridCellTable = new GridCell[3,4];  //  Grid of 3 rows, 4 columns
+            World world = new World();
+            GridCell[,] gridCellTable = world.GetWorld(); // = new GridCell[3,4];  //  Grid of 3 rows, 4 columns
 
             Console.WriteLine(gridCellTable.GetLength(0));
             Console.WriteLine(gridCellTable.GetLength(1) + "\n");
@@ -28,22 +28,21 @@ namespace ResearchProject1
 
             gridCellTable[1, 1].isPassable = false;
 
-            void printTable(GridCell[,] table)
-            {
-                for (int i = 0; i < table.GetLength(0); i++)
-                {
-
-                    for (int j = 0; j < table.GetLength(1); j++)
-                    {
-                        Console.Write(table[i, j].ToString());
-                    }
-                    Console.WriteLine();
-                }
-            }
-
             printTable(gridCellTable);
+            Console.ReadLine();
         }
 
+        static void printTable(GridCell[,] table)
+        {
+            for (int i = 0; i < table.GetLength(0); i++)
+            {
 
+                for (int j = 0; j < table.GetLength(1); j++)
+                {
+                    Console.Write(table[i, j].ToString());
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }
