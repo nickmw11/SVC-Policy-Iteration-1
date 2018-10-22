@@ -10,22 +10,23 @@ namespace ResearchProject1
     {
         // options ourOptions;
         // Possibly change below variables to properties & implement getters & setters
-
+        public enum options { UP, DOWN, LEFT, RIGHT };
+        public options ourOptions;
         public float value;
         public bool isPassable;
 
         public override string ToString()
         {
             if (isPassable == false)
-                return "[ X ]";
+                return "[\tX\t]";
 
             else
-            return "[ " + value + " ]";
+            return "[\t" + value + "\t]";
         }
 
         public GridCell()
         {
-            value = 0;
+            value = -0.04f;
             isPassable = true;
         }
     }

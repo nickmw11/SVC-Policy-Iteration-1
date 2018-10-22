@@ -15,6 +15,11 @@ namespace ResearchProject1
             return gridCellTable;
         }
 
+        public void SetWorld(GridCell[,] newTable)
+        {
+            gridCellTable = newTable;
+        }
+
         public GridCell GetCell(int x, int y)
         {
             return gridCellTable[x, y];
