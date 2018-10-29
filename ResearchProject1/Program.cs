@@ -34,8 +34,8 @@ namespace ResearchProject1
             robot.MoveToPosition(new Vector(1, 1));
             Console.WriteLine("Position: (" + robot.position.x + "," + robot.position.y + ")");
 
-            robot.world.GetCell(1, 0).value = 0;
-            robot.world.GetCell(0, 1).value = 1;
+            robot.world.GetCell(0, 3).value = 1;    //  Goal Value
+            robot.world.GetCell(1, 3).value = -1;   //  Loss Value
             //robot.world.GetCell(2, 1).value = 2;
 
             robot.FindOptimalCell();
@@ -44,6 +44,22 @@ namespace ResearchProject1
 
             printTable(robot.world.GetWorld(), robot);
             Console.ReadLine();
+
+            for (int outerLoop = 0; outerLoop < 5; outerLoop++) //  This will eventually loop until numbers converge
+            {
+                for (int i = 0; i < gridCellTable.GetLength(0); i++)
+                {
+
+                    for (int j = 0; j < gridCellTable.GetLength(1); j++)
+                    {
+                        if ((i != 0 && j != 3) && (i != 1 && j != 3))
+                            robot.world.GetCell(i, j).value = -0.04 + robot.FindOptimalCell();
+                    }
+                }
+                printTable(robot.world.GetWorld(), robot);
+                Console.WriteLine();
+            }
+
         }
 
         static void printTable(GridCell[,] table, Robot _robot)

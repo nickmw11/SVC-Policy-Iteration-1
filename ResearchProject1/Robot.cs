@@ -23,9 +23,9 @@ namespace ResearchProject1
             }
         }
 
-        public void FindOptimalCell()
+        public double FindOptimalCell()
         {
-            float max = 0;
+            double max = 0;
             GridCell bestCell;
             bestCell = world.GetCell(position.x + 1, position.y); // to the right
             bestCell.ourOptions = GridCell.options.RIGHT;
@@ -50,7 +50,8 @@ namespace ResearchProject1
                 max = bestCell.value;
             }
 
-            Console.WriteLine("Best Value: " + max + " In direction: " + bestCell.ourOptions.ToString());
+            //Console.WriteLine("Best Value: " + max + " In direction: " + bestCell.ourOptions.ToString());
+            return max;
         }
     }
 }
