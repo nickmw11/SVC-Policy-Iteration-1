@@ -41,6 +41,9 @@ namespace ResearchProject1
             // writes new utility to the cell it's on
             float max = 0;
 =======
+        public double FindOptimalCell()
+        {
+            double max = 0;
 >>>>>>> ef15ca23efb3440cccbdd01e474a268d01efd89e
             GridCell bestCell;
             bestCell = world.GetCell(position.x + 1, position.y); // to the right
@@ -66,6 +69,8 @@ namespace ResearchProject1
                 max = bestCell.value;
             }
 
+            //Console.WriteLine("Best Value: " + max + " In direction: " + bestCell.ourOptions.ToString());
+            return max;
         }
     }
 }
