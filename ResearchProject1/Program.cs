@@ -14,12 +14,17 @@ namespace ResearchProject1
             //World world = new World();
             //GridCell[,] gridCellTable = world.GetWorld(); // = new GridCell[3,4];  //  Grid of 3 rows, 4 columns
             Robot robot = new Robot();
+            World world = new World();
+            robot.world = world;
 
-            GridCell[,] gridCellTable = robot.world.GetWorld();
+            GridCell[,] gridCellTable = world.GetWorld();
+            //while...
+            // robot.doCalculation
 
             Console.WriteLine(gridCellTable.GetLength(0));
             Console.WriteLine(gridCellTable.GetLength(1) + "\n");
 
+            // Initialize this in world class
             for (int i = 0; i < gridCellTable.GetLength(0); i++)    //  Instantiates each cell with default values
             {
 
@@ -34,8 +39,8 @@ namespace ResearchProject1
             robot.MoveToPosition(new Vector(1, 1));
             Console.WriteLine("Position: (" + robot.position.x + "," + robot.position.y + ")");
 
-            robot.world.GetCell(1, 0).value = 0;
-            robot.world.GetCell(0, 1).value = 1;
+            robot.world.GetCell(1, 0).value = 1;
+            robot.world.GetCell(0, 1).value = 0;
             //robot.world.GetCell(2, 1).value = 2;
 
             robot.FindOptimalCell();

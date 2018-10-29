@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace ResearchProject1
 {
+    //class Policy
+    //{
+    //    Dictionary<GridCell, option> optimalPolicy;
+    //}
+
     class Robot
     {
-        public World world = new World();
+        public World world;
         public Vector position = new Vector();
 
         public void MoveToPosition(Vector pos)
@@ -23,8 +28,16 @@ namespace ResearchProject1
             }
         }
 
+        // double for loop to iterate through 2D array
+
+            // write 1 to all cells - just make sure all loops work
+
         public void FindOptimalCell()
         {
+            // iterate through all of options 
+            // get values from World
+            // calculates the max utility
+            // writes new utility to the cell it's on
             float max = 0;
             GridCell bestCell;
             bestCell = world.GetCell(position.x + 1, position.y); // to the right

@@ -24,5 +24,10 @@ namespace ResearchProject1
         {
             return gridCellTable[x, y];
         }
+
+        //public GridCell GetCellUtilityFromOption(Vector robotPosition, options option)
+        //{
+        //    return cell value
+        //}
     }
 }
