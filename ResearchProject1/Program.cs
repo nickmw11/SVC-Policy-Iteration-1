@@ -39,8 +39,11 @@ namespace ResearchProject1
             robot.MoveToPosition(new Vector(1, 1));
             Console.WriteLine("Position: (" + robot.position.x + "," + robot.position.y + ")");
 
+<<<<<<< HEAD
             robot.world.GetCell(1, 0).value = 1;
             robot.world.GetCell(0, 1).value = 0;
+=======
+>>>>>>> ef15ca23efb3440cccbdd01e474a268d01efd89e
             //robot.world.GetCell(2, 1).value = 2;
 
             robot.FindOptimalCell();

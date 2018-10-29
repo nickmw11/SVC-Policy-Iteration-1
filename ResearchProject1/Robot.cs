@@ -28,6 +28,7 @@ namespace ResearchProject1
             }
         }
 
+<<<<<<< HEAD
         // double for loop to iterate through 2D array
 
             // write 1 to all cells - just make sure all loops work
@@ -39,6 +40,8 @@ namespace ResearchProject1
             // calculates the max utility
             // writes new utility to the cell it's on
             float max = 0;
+=======
+>>>>>>> ef15ca23efb3440cccbdd01e474a268d01efd89e
             GridCell bestCell;
             bestCell = world.GetCell(position.x + 1, position.y); // to the right
             bestCell.ourOptions = GridCell.options.RIGHT;
@@ -63,7 +66,6 @@ namespace ResearchProject1
                 max = bestCell.value;
             }
 
-            Console.WriteLine("Best Value: " + max + " In direction: " + bestCell.ourOptions.ToString());
         }
     }
 }
