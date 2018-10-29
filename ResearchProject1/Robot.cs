@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace ResearchProject1
 {
-    //class Policy
-    //{
-    //    Dictionary<GridCell, option> optimalPolicy;
-    //}
-
     class Robot
     {
         public World world;
         public Vector position = new Vector();
+        public Policy policy = new Policy();
+        option option;
 
         public void MoveToPosition(Vector pos)
         {
@@ -28,48 +25,50 @@ namespace ResearchProject1
             }
         }
 
-<<<<<<< HEAD
         // double for loop to iterate through 2D array
 
             // write 1 to all cells - just make sure all loops work
 
-        public void FindOptimalCell()
-        {
-            // iterate through all of options 
-            // get values from World
-            // calculates the max utility
-            // writes new utility to the cell it's on
-            float max = 0;
-=======
+        //public void FindOptimalCell()
+        //{
+        //    // iterate through all of options 
+        //    // get values from World
+        //    // calculates the max utility
+        //    // writes new utility to the cell it's on
+        //    float max = 0;
+
         public double FindOptimalCell()
         {
-            double max = 0;
->>>>>>> ef15ca23efb3440cccbdd01e474a268d01efd89e
             GridCell bestCell;
+            option tempOption;
+            double max = 0;
+
             bestCell = world.GetCell(position.x + 1, position.y); // to the right
-            bestCell.ourOptions = GridCell.options.RIGHT;
+            tempOption = option.RIGHT;
             max = bestCell.value;
+
             if (world.GetCell(position.x + -1, position.y).value > max)
             {
                 bestCell = world.GetCell(position.x + -1, position.y);// left
-                bestCell.ourOptions = GridCell.options.LEFT;
+                tempOption = option.LEFT;
                 max = bestCell.value;
 
             }
             if (world.GetCell(position.x, position.y - 1).value > max) // up
             {
                 bestCell = world.GetCell(position.x, position.y - 1);
-                bestCell.ourOptions = GridCell.options.UP;
+                tempOption = option.UP;
                 max = bestCell.value;
             }
             if (world.GetCell(position.x, position.y + 1).value > max) // down
             {
                 bestCell = world.GetCell(position.x, position.y + 1);
-                bestCell.ourOptions = GridCell.options.DOWN;
+                tempOption = option.DOWN;
                 max = bestCell.value;
             }
+            policy.optimalPolicy.Add(bestCell, tempOption);
 
-            //Console.WriteLine("Best Value: " + max + " In direction: " + bestCell.ourOptions.ToString());
+            Console.WriteLine("Best Value: " + max + " In direction: " + tempOption.ToString());
             return max;
         }
     }

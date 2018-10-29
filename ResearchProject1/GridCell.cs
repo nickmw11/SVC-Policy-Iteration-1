@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace ResearchProject1
 {
-    class GridCell
+    public class GridCell
     {
-        // options ourOptions;
         // Possibly change below variables to properties & implement getters & setters
-        public enum options { UP, DOWN, LEFT, RIGHT };
-        public options ourOptions;
+
         public double value;
         public bool isPassable;
 
