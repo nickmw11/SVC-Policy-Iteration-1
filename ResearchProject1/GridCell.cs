@@ -24,7 +24,7 @@ namespace ResearchProject1
 
         public GridCell()
         {
-            value = -0.04f;
+            value = 0f;
             isPassable = true;
         }
     }

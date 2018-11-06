@@ -32,37 +32,40 @@ namespace ResearchProject1
                 }
             }
 
-            gridCellTable[2, 1].isPassable = false;
+            //gridCellTable[2, 1].isPassable = false;
 
-            robot.MoveToPosition(new Vector(1, 1));
+            //robot.MoveToPosition(new Vector(0, 2));
             Console.WriteLine("Position: (" + robot.position.x + "," + robot.position.y + ")");
 
-            robot.world.GetCell(1, 0).value = 1;
-            robot.world.GetCell(0, 1).value = 0;
+            //gridCellTable[1, 0].value = 1;
+            //gridCellTable[0, 1].value = 0;
 
-            robot.world.GetCell(0, 3).value = 1;    //  Goal Value
-            robot.world.GetCell(1, 3).value = -1;   //  Loss Value
+            gridCellTable[0, 3].value = 1;    //  Goal Value
+            gridCellTable[1, 3].value = -1;   //  Loss Value
             //robot.world.GetCell(2, 1).value = 2;
 
-            robot.FindOptimalCell();
+            //robot.FindOptimalCell();
 
             robot.world.SetWorld(gridCellTable);
 
             printTable(robot.world.GetWorld(), robot);
             Console.ReadLine();
+            Console.WriteLine(world.GetWorldLength());
 
             //while...
             // robot.doCalculation
-            for (int outerLoop = 0; outerLoop < 10; outerLoop++) //  This will eventually loop until numbers converge
+            for (int outerLoop = 0; outerLoop < 100; outerLoop++) //  This will eventually loop until numbers converge
             {
                 for (int i = 0; i < gridCellTable.GetLength(0); i++)
                 {
 
                     for (int j = 0; j < gridCellTable.GetLength(1); j++)
                     {
-                        if ((i != 0 && j != 3) && (i != 1 && j != 3))
-                            robot.world.GetCell(i, j).value = -0.04 + robot.FindOptimalCell();
-                    }
+                        if ((i == 0 && j == 3) || (i == 1 && j == 3))
+                            continue;
+
+                        gridCellTable[i, j].value = -0.04 + robot.FindOptimalCell(i, j); // Eventually make -0.04 constant/global 
+                    }                                                                          // FindOptimalValue()
                 }
                 printTable(robot.world.GetWorld(), robot);
                 Console.WriteLine();
@@ -77,14 +80,14 @@ namespace ResearchProject1
 
                 for (int j = 0; j < table.GetLength(1); j++)
                 {
-                    if (_robot.position.x == i && _robot.position.y == j)
-                    {
-                        Console.Write("[\tP\t]");
-                    }
-                    else
-                    {
+                    //if (_robot.position.x == i && _robot.position.y == j)
+                    //{
+                    //    Console.Write("[\tP\t]");
+                    //}
+                    //else
+                    //{
                         Console.Write(table[i, j].ToString());
-                    }
+                    //}
                 }
                 Console.WriteLine();
             }
