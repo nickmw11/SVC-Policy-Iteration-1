@@ -19,7 +19,8 @@ namespace ResearchProject1
                 return "[\tX\t]";
 
             else
-            return "[\t" + value + "\t]";
+            // "[\t" + value + "\t]";
+            return string.Format("[{0:N3}]" + " ", value);
         }
 
         public GridCell()

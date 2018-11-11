@@ -71,7 +71,7 @@ namespace ResearchProject1
             max = Math.Max(tempValueLeft, Math.Max(tempValueRight, Math.Max(tempValueUp, tempValueDown)));
 
             //Console.WriteLine("Best Value: " + max + " In direction: " + tempOption.ToString());
-            Console.WriteLine(max);
+            //Console.WriteLine(max);
 
             //if (max == tempValueLeft)
             //{

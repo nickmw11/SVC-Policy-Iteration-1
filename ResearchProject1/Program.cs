@@ -40,8 +40,8 @@ namespace ResearchProject1
             //gridCellTable[1, 0].value = 1;
             //gridCellTable[0, 1].value = 0;
 
-            gridCellTable[0, 3].value = 1;    //  Goal Value
-            gridCellTable[1, 3].value = -1;   //  Loss Value
+            gridCellTable[0, 6].value = 1;    //  Goal Value
+            gridCellTable[4, 5].value = -1;   //  Loss Value
             //robot.world.GetCell(2, 1).value = 2;
 
             //robot.FindOptimalCell();
@@ -61,7 +61,7 @@ namespace ResearchProject1
 
                     for (int j = 0; j < gridCellTable.GetLength(1); j++)
                     {
-                        if ((i == 0 && j == 3) || (i == 1 && j == 3))
+                        if ((i == 0 && j == 6) || (i == 4 && j == 5))
                             continue;
 
                         gridCellTable[i, j].value = -0.04 + robot.FindOptimalCell(i, j); // Eventually make -0.04 constant/global 

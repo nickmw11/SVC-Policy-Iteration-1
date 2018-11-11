@@ -11,7 +11,7 @@ namespace ResearchProject1
         //public int rows = 3;
         //public int columns = 4;
 
-        GridCell[,] gridCellTable = new GridCell[3 , 4];  //  Grid of 3 rows, 4 columns
+        GridCell[,] gridCellTable = new GridCell[7 , 8];  //  Grid of 3 rows, 4 columns
 
         public GridCell[,] GetWorld()
         {
@@ -64,7 +64,7 @@ namespace ResearchProject1
                     
             }
 
-            Console.WriteLine("Row: " + row + " Column: " + column);
+            //Console.WriteLine("Row: " + row + " Column: " + column);
             return gridCellTable[row, column];
 
         }
