@@ -11,6 +11,7 @@ namespace ResearchProject1
 
         static void Main(string[] args)
         {
+            double delta = 1;
             //World world = new World();
             //GridCell[,] gridCellTable = world.GetWorld(); // = new GridCell[3,4];  //  Grid of 3 rows, 4 columns
             Robot robot = new Robot();
@@ -52,10 +53,11 @@ namespace ResearchProject1
             Console.ReadLine();
             Console.WriteLine(world.GetWorldLength());
 
-            //while...
-            // robot.doCalculation
-            for (int outerLoop = 0; outerLoop < 100; outerLoop++) //  This will eventually loop until numbers converge
+            //for (int outerLoop = 0; outerLoop < 100; outerLoop++) //  This will eventually loop until numbers converge
+            //{
+            while (Math.Abs(delta) > 0.001f)
             {
+                Console.WriteLine(delta);
                 for (int i = 0; i < gridCellTable.GetLength(0); i++)
                 {
 
@@ -64,12 +66,15 @@ namespace ResearchProject1
                         if ((i == 0 && j == 6) || (i == 4 && j == 5))
                             continue;
 
-                        gridCellTable[i, j].value = -0.04 + robot.FindOptimalCell(i, j); // Eventually make -0.04 constant/global 
+                        double oldValue = gridCellTable[i, j].value;
+                        gridCellTable[i, j].value = -0.04 + robot.FindOptimalCell(i, j); // Eventually make -0.04 constant/global
+                        delta = gridCellTable[i, j].value - oldValue;
                     }                                                                          // FindOptimalValue()
                 }
-                printTable(robot.world.GetWorld(), robot);
                 Console.WriteLine();
+                printTable(robot.world.GetWorld(), robot);
             }
+            //}
 
         }
 
@@ -86,7 +91,7 @@ namespace ResearchProject1
                     //}
                     //else
                     //{
-                        Console.Write(table[i, j].ToString());
+                    Console.Write(table[i, j].ToString());
                     //}
                 }
                 Console.WriteLine();
