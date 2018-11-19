@@ -33,7 +33,7 @@ namespace ResearchProject1
                 }
             }
 
-            //gridCellTable[2, 1].isPassable = false;
+            gridCellTable[4, 6].isPassable = false;
 
             //robot.MoveToPosition(new Vector(0, 2));
             Console.WriteLine("Position: (" + robot.position.x + "," + robot.position.y + ")");
@@ -53,17 +53,14 @@ namespace ResearchProject1
             Console.ReadLine();
             Console.WriteLine(world.GetWorldLength());
 
-            //for (int outerLoop = 0; outerLoop < 100; outerLoop++) //  This will eventually loop until numbers converge
-            //{
             while (Math.Abs(delta) > 0.001f)
             {
                 Console.WriteLine(delta);
                 for (int i = 0; i < gridCellTable.GetLength(0); i++)
                 {
-
                     for (int j = 0; j < gridCellTable.GetLength(1); j++)
                     {
-                        if ((i == 0 && j == 6) || (i == 4 && j == 5))
+                        if ((i == 0 && j == 6) || (i == 4 && j == 5) || !gridCellTable[i, j].isPassable)
                             continue;
 
                         double oldValue = gridCellTable[i, j].value;
@@ -71,11 +68,10 @@ namespace ResearchProject1
                         delta = gridCellTable[i, j].value - oldValue;
                     }                                                                          // FindOptimalValue()
                 }
-                Console.WriteLine();
-                printTable(robot.world.GetWorld(), robot);
             }
-            //}
-
+            Console.Clear();
+            printTable(robot.world.GetWorld(), robot);
+            Console.ReadLine();
         }
 
         static void printTable(GridCell[,] table, Robot _robot)

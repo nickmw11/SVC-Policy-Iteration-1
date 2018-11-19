@@ -16,7 +16,7 @@ namespace ResearchProject1
         public override string ToString()
         {
             if (isPassable == false)
-                return "[\tX\t]";
+                return "[  X  ] ";
 
             else
             // "[\t" + value + "\t]";

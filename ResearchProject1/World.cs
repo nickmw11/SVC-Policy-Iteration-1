@@ -39,24 +39,24 @@ namespace ResearchProject1
             {
                 case option.UP:
                     row--;
-                    row = row < 0 ? 0 : row;
+                    row = row < 0 || !gridCellTable[row,column].isPassable ? 0 : row;
                     break;
 
                 case option.DOWN:
                     row++;
                     //row = row > gridCellTable.GetLength(1) - 1 ? row : gridCellTable.GetLength(1) - 1;
-                    row = row > gridCellTable.GetLength(0) - 1 ? --row : row;
+                    row = row > gridCellTable.GetLength(0) - 1 || !gridCellTable[row, column].isPassable ? --row : row;
                     break;
 
                 case option.LEFT:
                     column--;
-                    column = column < 0 ? 0 : column;
+                    column = column < 0 || !gridCellTable[row, column].isPassable ? 0 : column;
                     break;
 
                 case option.RIGHT:
                     column++;
                     //column = column > gridCellTable.GetLength(1) - 1 ? column : gridCellTable.GetLength(0) - 1;
-                    column = column > gridCellTable.GetLength(1) - 1 ? --column : column;
+                    column = column > gridCellTable.GetLength(1) - 1 || !gridCellTable[row, column].isPassable ? --column : column;
                     break;
 
                 //default:
