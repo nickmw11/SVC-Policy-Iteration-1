@@ -13,10 +13,13 @@ namespace ResearchProject1
         public double value;
         public bool isPassable;
 
+        public bool isGoal;
+        public bool isFail;
+
         public override string ToString()
         {
             if (isPassable == false)
-                return "[  X  ] ";
+                return "[  X  ]";
 
             else
             // "[\t" + value + "\t]";
@@ -25,7 +28,7 @@ namespace ResearchProject1
 
         public GridCell()
         {
-            value = 0f;
+            value = -0.04f;
             isPassable = true;
         }
     }
