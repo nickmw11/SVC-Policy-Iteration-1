@@ -11,7 +11,8 @@ namespace ResearchProject1
 
         static void Main(string[] args)
         {
-            double delta = 1;
+            double delta = 0;
+            long loopCount = 0;
             //World world = new World();
             //GridCell[,] gridCellTable = world.GetWorld(); // = new GridCell[3,4];  //  Grid of 3 rows, 4 columns
             Robot robot = new Robot();
@@ -41,8 +42,12 @@ namespace ResearchProject1
             //gridCellTable[1, 0].value = 1;
             //gridCellTable[0, 1].value = 0;
 
-            gridCellTable[0, 6].value = 1;    //  Goal Value
-            gridCellTable[4, 5].value = -1;   //  Loss Value
+            gridCellTable[0, 3].value = 1;    //  Goal Value
+            gridCellTable[0, 3].isGoal = true;
+            gridCellTable[1, 3].value = -1;   //  Loss Value
+            gridCellTable[1, 3].isFail = true;
+            gridCellTable[2, 2].isPassable = false;
+            gridCellTable[0, 1].isPassable = false;
             //robot.world.GetCell(2, 1).value = 2;
 
             //robot.FindOptimalCell();
@@ -55,26 +60,43 @@ namespace ResearchProject1
 
             //for (int outerLoop = 0; outerLoop < 100; outerLoop++) //  This will eventually loop until numbers converge
             //{
-            while (Math.Abs(delta) > 0.001f)
+
+            while (true)
             {
-                Console.WriteLine(delta);
+                delta = 0;
                 for (int i = 0; i < gridCellTable.GetLength(0); i++)
                 {
 
                     for (int j = 0; j < gridCellTable.GetLength(1); j++)
                     {
-                        if ((i == 0 && j == 6) || (i == 4 && j == 5))
+                        loopCount++;
+                        //if ((i == 0 && j == 3) || (i == 1 && j == 3))
+                        //    continue;
+
+                        if (!gridCellTable[i, j].isPassable || gridCellTable[i, j].isGoal || gridCellTable[i,j].isFail)
                             continue;
 
                         double oldValue = gridCellTable[i, j].value;
-                        gridCellTable[i, j].value = -0.04 + robot.FindOptimalCell(i, j); // Eventually make -0.04 constant/global
-                        delta = gridCellTable[i, j].value - oldValue;
-                    }                                                                          // FindOptimalValue()
+                        gridCellTable[i, j].value = -0.04f + robot.FindOptimalCell(i, j); // Eventually make -0.04 constant/global
+                        delta = Math.Max(delta, Math.Abs(gridCellTable[i, j].value - oldValue));
+                    }
+                    //printTable(robot.world.GetWorld(), robot);
+                    //Console.WriteLine();
                 }
-                Console.WriteLine();
+                if (Math.Abs(delta) <= 0.001f)
+                {
+                    break;
+                }
                 printTable(robot.world.GetWorld(), robot);
+                Console.WriteLine("\n");
+                if (loopCount % 20 == 0)
+                {
+                }
             }
+            //Console.WriteLine(delta + " Loop Count: " + loopCount);
             //}
+            Console.WriteLine("Loop count: " + loopCount);
+            printTable(robot.world.GetWorld(), robot);
 
         }
 
