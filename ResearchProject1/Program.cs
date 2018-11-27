@@ -8,92 +8,89 @@ namespace ResearchProject1
     class Program
     {
 
-
         static void Main(string[] args)
         {
             double delta = 0;
-            long loopCount = 0;
-            //World world = new World();
+            double desiredDelta = 0.001f;
+
+            double discountFactor = 1.0f;
+            double rewardValue = -0.04f;
+
+            long loopCount = 0; //  Number of iterations to reach desired delta value
+
             Robot robot = new Robot();
             World world = new World();
             robot.world = world;
 
+            World policy = new World();
+
             GridCell[,] gridCellTable = world.GetWorld();
 
-            Console.WriteLine(gridCellTable.GetLength(0));
-            Console.WriteLine(gridCellTable.GetLength(1) + "\n");
+            //  Output size of world to console
+            Console.WriteLine("World Rows: " + gridCellTable.GetLength(0));
+            Console.WriteLine("World Columns: " + gridCellTable.GetLength(1) + "\n");
 
-            // Initialize this in world class
-            for (int i = 0; i < gridCellTable.GetLength(0); i++)    //  Instantiates each cell with default values
+            //  Instantiates each cell with default values
+            for (int i = 0; i < gridCellTable.GetLength(0); i++)    
             {
 
                 for (int j = 0; j < gridCellTable.GetLength(1); j++)
                 {
                     gridCellTable[i, j] = new GridCell();
                 }
+
             }
 
-            //gridCellTable[2, 1].isPassable = false;
+            //  World definition - Should move towards parsing this from another file such at bitmap
+            gridCellTable[0, 9].value = 1;    //  Goal Value
+            gridCellTable[0, 9].isGoal = true;
+            gridCellTable[2, 9].value = -1;   //  Loss Value
+            gridCellTable[2, 9].isFail = true;
+            gridCellTable[9, 4].isPassable = false;
+            gridCellTable[5, 5].isPassable = false;
 
-            //robot.MoveToPosition(new Vector(0, 2));
-            Console.WriteLine("Position: (" + robot.position.x + "," + robot.position.y + ")");
-
-            //gridCellTable[1, 0].value = 1;
-            //gridCellTable[0, 1].value = 0;
-
-            gridCellTable[0, 3].value = 1;    //  Goal Value
-            gridCellTable[0, 3].isGoal = true;
-            gridCellTable[1, 3].value = -1;   //  Loss Value
-            gridCellTable[1, 3].isFail = true;
-            gridCellTable[2, 2].isPassable = false;
-            gridCellTable[0, 1].isPassable = false;
-            //robot.world.GetCell(2, 1).value = 2;
-
-            //robot.FindOptimalCell();
-
+            //  Set robot to current world
             robot.world.SetWorld(gridCellTable);
 
+            //  Print initial world
             printTable(robot.world.GetWorld(), robot);
-            Console.ReadLine();
-            Console.WriteLine(world.GetWorldLength());
 
-            //for (int outerLoop = 0; outerLoop < 100; outerLoop++) //  This will eventually loop until numbers converge
-            //{
+            Console.ReadLine();
 
             while (true)
             {
                 delta = 0;
-                for (int i = 0; i < gridCellTable.GetLength(0); i++)
+                for (int i = 0; i < gridCellTable.GetLength(0); i++)    //
                 {
 
-                    for (int j = 0; j < gridCellTable.GetLength(1); j++)
+                    for (int j = 0; j < gridCellTable.GetLength(1); j++)    //  Iterates across each cell in world
                     {
                         loopCount++;
-                        //if ((i == 0 && j == 3) || (i == 1 && j == 3))
-                        //    continue;
 
-                        if (!gridCellTable[i, j].isPassable || gridCellTable[i, j].isGoal || gridCellTable[i,j].isFail)
+                        if (!gridCellTable[i, j].isPassable || gridCellTable[i, j].isGoal || gridCellTable[i,j].isFail) //  If the cell isn't passable, is a goal cell, or a fail cell, don't calculate value
                             continue;
 
                         double oldValue = gridCellTable[i, j].value;
-                        gridCellTable[i, j].value = -0.04f + robot.FindOptimalCell(i, j); // Eventually make -0.04 constant/global
+                        gridCellTable[i, j].value = rewardValue + (discountFactor * robot.FindOptimalCell(i, j));     // Bellman update
                         delta = Math.Max(delta, Math.Abs(gridCellTable[i, j].value - oldValue));
+
                     }
-                    //printTable(robot.world.GetWorld(), robot);
-                    //Console.WriteLine();
+
+
                 }
-                if (Math.Abs(delta) <= 0.001f)
+                if (Math.Abs(delta) <= desiredDelta)  //  Once delta reaches desired value, stop
                 {
                     break;
                 }
+
                 printTable(robot.world.GetWorld(), robot);
                 Console.WriteLine("\n");
                 if (loopCount % 20 == 0)
                 {
                 }
+
             }
-            //Console.WriteLine(delta + " Loop Count: " + loopCount);
-            //}
+
             Console.WriteLine("Loop count: " + loopCount);
             printTable(robot.world.GetWorld(), robot);
 
@@ -106,17 +103,12 @@ namespace ResearchProject1
 
                 for (int j = 0; j < table.GetLength(1); j++)
                 {
-                    //if (_robot.position.x == i && _robot.position.y == j)
-                    //{
-                    //    Console.Write("[\tP\t]");
-                    //}
-                    //else
-                    //{
                     Console.Write(table[i, j].ToString());
-                    //}
                 }
+
                 Console.WriteLine();
             }
         }
+
     }
 }

@@ -11,93 +11,89 @@ namespace ResearchProject1
         public World world;
         public Vector position = new Vector();
         public Policy policy = new Policy();
+
         option option;
 
 
         public void MoveToPosition(Vector pos)
         {
-            //if (world.GetCell(pos.x, pos.y).isPassable)
-            //{
+
                 position = pos;
-            //}
-            //else
-            //{
-            //    Console.WriteLine("NotPassable");
-            //}
         }
-
-        // double for loop to iterate through 2D array
-
-        // write 1 to all cells - just make sure all loops work
-
-        //public void FindOptimalCell()
-        //{
-        //    // iterate through all of options 
-        //    // get values from World
-        //    // calculates the max utility
-        //    // writes new utility to the cell it's on
-        //    float max = 0;
 
         public double FindOptimalCell(int row, int column)
         {
             position = new Vector(row, column);
             GridCell bestCell;
             option tempOption;
-            double max = -999999999;
+            double max = -99999999;
             double tempValueUp, tempValueDown, tempValueLeft, tempValueRight = 0;
+            option[] foo = { option.UP, option.DOWN, option.LEFT, option.RIGHT };
+            //  Dictionary key: tempValue, item: option
+            //  Dictionary max to get item out
 
-            // bestCell = world.GetCell(position.x + 1, position.y); // to the right
-
-            //  Switch ifs to foreach
-            //foreach (option o in option)
-            // To do this, we may need to define the enum in a class that implements IEnumerable
-            //{
-
-
-                tempValueLeft = 0.8f * world.GetCell(position.x, position.y, option.LEFT).value + 0.1f * world.GetCell(position.x, position.y, option.UP).value
-                    + 0.1f * world.GetCell(position.x, position.y, option.DOWN).value; // left
+            foreach (option o in foo)
+            {
+                tempValueUp = 0.8f * world.GetCell(position.x, position.y, option.UP).value + 0.1f * world.GetCell(position.x, position.y, option.LEFT).value
+                    + 0.1f * world.GetCell(position.x, position.y, option.RIGHT).value;
+            }
 
                 tempValueUp = 0.8f * world.GetCell(position.x, position.y, option.UP).value + 0.1f * world.GetCell(position.x, position.y, option.LEFT).value 
-                + 0.1f * world.GetCell(position.x, position.y, option.RIGHT).value;
+                + 0.1f * world.GetCell(position.x, position.y, option.RIGHT).value; // up
+
+                tempValueLeft = 0.8f * world.GetCell(position.x, position.y, option.LEFT).value + 0.1f * world.GetCell(position.x, position.y, option.UP).value
+                + 0.1f * world.GetCell(position.x, position.y, option.DOWN).value; // left
 
                 tempValueDown = 0.8f * world.GetCell(position.x, position.y, option.DOWN).value + 0.1f * world.GetCell(position.x, position.y, option.LEFT).value
-                + 0.1f * world.GetCell(position.x, position.y, option.RIGHT).value;
+                + 0.1f * world.GetCell(position.x, position.y, option.RIGHT).value; // down
 
                 tempValueRight = 0.8f * world.GetCell(position.x, position.y, option.RIGHT).value + 0.1f * world.GetCell(position.x, position.y, option.UP).value
-                + 0.1f * world.GetCell(position.x, position.y, option.DOWN).value;
+                + 0.1f * world.GetCell(position.x, position.y, option.DOWN).value;  // right
 
-            //policy.optimalPolicy.Add(bestCell, tempOption);     //  Vector instead of location 
+                
 
-            max = Math.Max(tempValueLeft, Math.Max(tempValueRight, Math.Max(tempValueUp, tempValueDown)));
 
-            //Console.WriteLine("Best Value: " + max + " In direction: " + tempOption.ToString());
-            //Console.WriteLine(max);
+            //max = Math.Max(tempValueLeft, Math.Max(tempValueRight, Math.Max(tempValueUp, tempValueDown)));    Uncomment this to have value iteration working again
 
-            //if (max == tempValueLeft)
-            //{
-            //    position.x += -1;
-            //    if (position.x < 0)
-            //        position.x = 0;
-            //}
-            //else if (max == tempValueRight)
-            //{
-            //    position.x += 1;
-            //    if (position.x > world.GetWorldLength())
-            //        position.x -= 1;
-            //}
-            //else if (max == tempValueUp)
-            //{
-            //    position.y -= 1;
-            //    if (position.y < 0)
-            //        position.y = 0;
-            //}
-            //else if (max == tempValueDown)
-            //{
-            //    position.y += 1;
-            //    if (position.y > world.GetWorldHeight())
-            //        position.y -= 1;
-            //}
+
             return max;
         }
+
+        public double FindOptimalCell(int row, int column, option o)
+        {
+            position = new Vector(row, column);
+
+            switch (o)
+            {
+                case option.UP:
+                     return 0.8f * world.GetCell(position.x, position.y, option.UP).value + 0.1f * world.GetCell(position.x, position.y, option.LEFT).value
+                        + 0.1f * world.GetCell(position.x, position.y, option.RIGHT).value;
+
+                case option.DOWN:
+                    return 0.8f * world.GetCell(position.x, position.y, option.DOWN).value + 0.1f * world.GetCell(position.x, position.y, option.LEFT).value
+                        + 0.1f * world.GetCell(position.x, position.y, option.RIGHT).value; // down
+
+                case option.LEFT:
+                    return 0.8f * world.GetCell(position.x, position.y, option.LEFT).value + 0.1f * world.GetCell(position.x, position.y, option.UP).value
+                        + 0.1f * world.GetCell(position.x, position.y, option.DOWN).value; // left
+
+                case option.RIGHT:
+                    return 0.8f * world.GetCell(position.x, position.y, option.RIGHT).value + 0.1f * world.GetCell(position.x, position.y, option.UP).value
+                        + 0.1f * world.GetCell(position.x, position.y, option.DOWN).value;  // right
+
+                case option.NONE:
+                    return world.GetCell(position.x, position.y).value;
+
+                default:
+                    Console.WriteLine("Error in policy iteration");
+                    return 0.0f;
+
+
+            }
+
+            //return max;
+        }
+
+
     }
 }
