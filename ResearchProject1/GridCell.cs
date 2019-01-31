@@ -8,27 +8,29 @@ namespace ResearchProject1
 {
     public class GridCell
     {
-        // Possibly change below variables to properties & implement getters & setters
 
         public double value;
-        public bool isPassable;
+        public option policy;
 
+        public bool isPassable;
         public bool isGoal;
         public bool isFail;
 
         public override string ToString()
         {
             if (isPassable == false)
-                return "[  X  ]";
+                return "[XXXXXX] ";
+
+            else if (value < 0)
+                return string.Format("[{0:N3}]" + " ", value);
 
             else
-            // "[\t" + value + "\t]";
-            return string.Format("[{0:N3}]" + " ", value);
+            return string.Format("[ {0:N3}]" + " ", value);
         }
 
         public GridCell()
         {
-            value = -0.04f;
+            value = 0.00f;
             isPassable = true;
         }
     }
